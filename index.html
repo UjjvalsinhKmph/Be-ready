@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .timer {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .timer h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+        .timer p {
+            font-size: 18px;
+            margin: 10px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer">
+        <h1 id="countdown">Loading...</h1>
+        <p>until the event at 5 PM</p>
+    </div>
+    <script>
+        function calculateTimeLeft() {
+            const now = new Date();
+            const eventTime = new Date();
+            eventTime.setHours(17, 0, 0, 0); // Set event time to 5 PM today
+
+            if (now > eventTime) {
+                // If current time is past 5 PM, set event time to 5 PM tomorrow
+                eventTime.setDate(eventTime.getDate() + 1);
+            }
+
+            const timeLeft = eventTime - now;
+
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            return {
+                hours,
+                minutes,
+                seconds
+            };
+        }
+
+        function startCountdown() {
+            const countdownElement = document.getElementById('countdown');
+
+            function updateCountdown() {
+                const timeLeft = calculateTimeLeft();
+
+                countdownElement.textContent = `${timeLeft.hours}h ${timeLeft.minutes}m ${timeLeft.seconds}s`;
+
+                if (timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
+                    clearInterval(timerInterval);
+                    countdownElement.textContent = 'The event has started!';
+                }
+            }
+
+            updateCountdown();
+            const timerInterval = setInterval(updateCountdown, 1000);
+        }
+
+        window.onload = startCountdown;
+    </script>
+</body>
+</html>
