@@ -13,6 +13,8 @@
             margin: 0;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
         }
         .timer {
             text-align: center;
@@ -29,6 +31,49 @@
             font-size: 18px;
             margin: 10px 0 0;
         }
+        @keyframes firework {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, yellow, red);
+            border-radius: 50%;
+            animation: firework 1s ease-out infinite;
+        }
+        .firework1 {
+            top: 40%;
+            left: 50%;
+            animation-delay: 0s;
+        }
+        .firework2 {
+            top: 30%;
+            left: 60%;
+            animation-delay: 0.5s;
+        }
+        .firework3 {
+            top: 50%;
+            left: 40%;
+            animation-delay: 1s;
+        }
+        .firework4 {
+            top: 45%;
+            left: 55%;
+            animation-delay: 1.5s;
+        }
+        .firework5 {
+            top: 35%;
+            left: 45%;
+            animation-delay: 2s;
+        }
     </style>
 </head>
 <body>
@@ -36,6 +81,11 @@
         <h1 id="countdown">Loading...</h1>
         <p>Be ready</p>
     </div>
+    <div class="firework firework1"></div>
+    <div class="firework firework2"></div>
+    <div class="firework firework3"></div>
+    <div class="firework firework4"></div>
+    <div class="firework firework5"></div>
     <script>
         function calculateTimeLeft() {
             const now = new Date();
@@ -71,6 +121,9 @@
                 if (timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
                     clearInterval(timerInterval);
                     countdownElement.textContent = 'The event has started!';
+                    document.querySelectorAll('.firework').forEach(firework => {
+                        firework.style.display = 'block';
+                    });
                 }
             }
 
@@ -78,7 +131,12 @@
             const timerInterval = setInterval(updateCountdown, 1000);
         }
 
-        window.onload = startCountdown;
+        window.onload = function() {
+            document.querySelectorAll('.firework').forEach(firework => {
+                firework.style.display = 'none';
+            });
+            startCountdown();
+        };
     </script>
 </body>
 </html>
