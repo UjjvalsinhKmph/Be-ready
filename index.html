@@ -110,14 +110,17 @@
         //     };
         // }
 
-        function calculateTimeLeft() {
+function calculateTimeLeft() {
     const now = new Date();
     const eventTime = new Date();
-    eventTime.setHours(18, 30, 0, 0); // Set event time to 6:27 PM todayl̥
+
+    // Set event time to today's 6:31 PMl̥
+    eventTime.setHours(18, 31, 0, 0);
 
     if (now > eventTime) {
-        // If the current time is past 6:27 PM, set the event time to 6:27 PM tomorrow
+        // If the current time is past 6:31 PM, set the event time to tomorrow's 6:31 PM
         eventTime.setDate(eventTime.getDate() + 1);
+        eventTime.setHours(18, 31, 0, 0);
     }
 
     const timeLeft = eventTime - now;
@@ -132,6 +135,7 @@
         seconds
     };
 }
+
 
 
         function startCountdown() {
