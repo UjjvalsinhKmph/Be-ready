@@ -90,12 +90,12 @@
         function calculateTimeLeft() {
             const now = new Date();
             const eventTime = new Date();
-            eventTime.setHours(18, 23, 0, 0); // Set event time to 5 PM today
+            eventTime.setHours(6, 25, 0, 0); // Set event time to 5 PM today
 
-            // if (now > eventTime) {
-            //     // If current time is past 5 PM, set event time to 5 PM tomorrow
-            //     eventTime.setDate(eventTime.getDate() + 1);
-            // }
+            if (now > eventTime) {
+                // If the current time is past 5 PM, set the event time to 5 PM tomorrow
+                eventTime.setDate(eventTime.getDate() + 1);
+            }
 
             const timeLeft = eventTime - now;
 
